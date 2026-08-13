@@ -1,0 +1,320 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>글 목록 (1/2) · t3b04-mp-kb-real</title>
+  <meta name="description" content="t3b04-mp-kb-real에 올라온 글 목록입니다.">
+  <link rel="canonical" href="https://t3b04-mp-kb-real.maphoshirts.com/posts.html">
+  <link rel="icon" type="image/svg+xml" href="favicon.svg">
+  <style>
+        :root {
+            --bg-color: #060809;
+            --main-gradient: linear-gradient(180deg, #060809 0%, #111a19 100%);
+            --card-surface: rgba(255, 255, 255, 0.02);
+            --border-color: rgba(255, 255, 255, 0.04);
+            --text-high: #e2eaf0;
+            --text-low: #8ba2b4;
+            --gold: #d97706;
+            --glow: rgba(217, 119, 6, 0.12);
+            --font-serif: 'Gowun Batang', serif;
+            --font-sans: 'Inter', sans-serif;
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            background: var(--main-gradient);
+            color: var(--text-high);
+            font-family: var(--font-serif);
+            line-height: 1.85;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            overflow-x: hidden;
+        }
+
+        .container {
+            max-width: 660px;
+            margin: 0 auto;
+            padding: 90px 24px;
+            width: 100%;
+        }
+
+        .blog-header {
+            text-align: center;
+            margin-bottom: 50px;
+            position: relative;
+        }
+
+        .blog-header::after {
+            content: '';
+            display: block;
+            width: 35px;
+            height: 1px;
+            background: var(--gold);
+            margin: 20px auto 0;
+            opacity: 0.4;
+            box-shadow: 0 0 6px var(--gold);
+        }
+
+        .blog-sub {
+            font-size: 0.8rem;
+            text-transform: uppercase;
+            letter-spacing: 0.18em;
+            color: var(--gold);
+            font-family: var(--font-sans);
+            font-weight: 500;
+            margin-bottom: 10px;
+        }
+
+        .blog-title {
+            font-size: 1.85rem;
+            font-weight: 700;
+            color: #ffffff;
+            line-height: 1.45;
+            letter-spacing: -0.01em;
+        }
+
+        .blog-date {
+            font-size: 0.85rem;
+            color: var(--text-low);
+            margin-top: 10px;
+            font-family: var(--font-sans);
+        }
+
+        .essay-content {
+            font-size: 1.08rem;
+            color: var(--text-high);
+            text-align: justify;
+        }
+
+        .essay-p {
+            margin-bottom: 28px;
+            text-indent: 10px;
+        }
+
+        .highlight-quote {
+            background: var(--card-surface);
+            border-left: 2px solid var(--gold);
+            padding: 20px 24px;
+            margin: 36px 0;
+            border-radius: 0 8px 8px 0;
+            backdrop-filter: blur(8px);
+            border-top: 1px solid var(--border-color);
+            border-right: 1px solid var(--border-color);
+            border-bottom: 1px solid var(--border-color);
+        }
+
+        .quote-inner {
+            font-style: italic;
+            color: #fffbeb;
+            font-size: 1.02rem;
+        }
+
+        .comments {
+            margin-top: 75px;
+            border-top: 1px solid var(--border-color);
+            padding-top: 40px;
+        }
+
+        .comments-label {
+            font-family: var(--font-sans);
+            font-size: 0.85rem;
+            color: var(--gold);
+            letter-spacing: 0.12em;
+            margin-bottom: 22px;
+            text-transform: uppercase;
+        }
+
+        .comment-node {
+            background: var(--card-surface);
+            border: 1px solid var(--border-color);
+            border-radius: 8px;
+            padding: 18px;
+            margin-bottom: 14px;
+            transition: all 0.3s ease;
+        }
+
+        .comment-node:hover {
+            border-color: rgba(217, 119, 6, 0.22);
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.25);
+        }
+
+        .comment-meta {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 10px;
+            font-family: var(--font-sans);
+            font-size: 0.8rem;
+        }
+
+        .author-name {
+            font-weight: 500;
+            color: #ffffff;
+        }
+
+        .post-time {
+            color: var(--text-low);
+        }
+
+        .stars {
+            color: var(--gold);
+            font-size: 0.75rem;
+            margin-top: 2px;
+        }
+
+        .text-body {
+            font-size: 0.92rem;
+            color: var(--text-high);
+        }
+
+        .footer {
+            text-align: center;
+            padding: 35px 24px;
+            border-top: 1px solid var(--border-color);
+            font-family: var(--font-sans);
+            font-size: 0.75rem;
+            color: var(--text-low);
+            letter-spacing: 0.05em;
+        }
+
+        .gold-glow {
+            position: absolute;
+            width: 250px;
+            height: 250px;
+            background: radial-gradient(circle, var(--glow) 0%, transparent 70%);
+            top: -80px;
+            left: 50%;
+            transform: translateX(-50%);
+            pointer-events: none;
+            z-index: -1;
+        }
+
+        @media (max-width: 768px) {
+            .container {
+                padding: 40px 16px;
+            }
+
+            .blog-title {
+                font-size: 1.55rem;
+            }
+
+            .essay-content {
+                font-size: 1.02rem;
+            }
+        }
+    </style>
+  <meta property="og:title" content="글 목록 (1/2) · t3b04-mp-kb-real">
+  <meta property="og:description" content="t3b04-mp-kb-real에 올라온 글 목록입니다.">
+  <meta property="og:url" content="https://t3b04-mp-kb-real.maphoshirts.com/posts.html">
+  <meta property="og:type" content="website">
+  <meta name="twitter:card" content="summary">
+</head>
+<body>
+  <div class="container">
+    <header class="blog-header">
+            <div class="gold-glow"></div>
+            <div class="blog-sub">RIVER WAY ESSAY</div>
+            <div class="blog-title">강변 나루터 언덕길 주황색 가로등 아래 스며드는 조용한 노래의 여정</div>
+            <div class="blog-date">2026. 05. 27</div>
+        </header>
+    <main>
+      <h1>글 목록</h1>
+      <p>전체 40개 · 1/2 페이지</p>
+      <ul class="post-list">
+      <li class="post-item">
+        <a class="post-item__link" href="posts/gemini-coverage-20260705-846.html">마포 노래방 이용 시 알아두어야 할 시설별 특성과 방문 팁</a>
+        <p class="post-item__summary">마포 지역에는 퇴근 후 직장인이나 소규모 모임 단위로 찾기 좋은 노래방이 다수 자리 잡고 있습니다. 이곳의 노래방들은 크게 번화가 중심의 대형 시설과 골목마다 자리한 아늑한 규모의 시설로 나뉩니다.</p>
+      </li>
+      <li class="post-item">
+        <a class="post-item__link" href="posts/gemini-coverage-20260706-0205.html">마포 노래방 내돈내산 솔직 후기</a>
+        <p class="post-item__summary">마포에는 생각보다 노래방이 많다. 홍대입구역 근처부터 합정, 상수 쪽까지 골목골목에 자리 잡고 있어 선택지가 꽤 넓다. 특히 주말 저녁에는 웨이팅이 생기는 곳도 있을 정도.</p>
+      </li>
+      <li class="post-item">
+        <a class="post-item__link" href="posts/gemini-coverage-20260706-0206.html">마포 노래방 내돈내산: 한숨 돌리는 밤의 쉼터</a>
+        <p class="post-item__summary">마포에 위치한 노래방은 조용하면서도 거주지처럼 오랜 시간 머무를 수 있는 편안함이 매력이다. 각 방마다 사운드 시스템이 선명하게 설치돼 있어 현지 팬들에게 큰 인기를 끌고 있다.</p>
+      </li>
+      <li class="post-item">
+        <a class="post-item__link" href="posts/gemini-coverage-20260706-0207.html">마포 노래방, 하나씩 살펴보면</a>
+        <p class="post-item__summary">마포에는 홍대입구, 합정, 상수 등 지역 특성에 따라 다양한 노래방이 자리 잡고 있다. 코인노래방부터 프라이빗 룸 형태까지 선택지가 폭넓어 모임 목적에 맞게 고를 수 있다. 최근에는 시설과 음향에 </p>
+      </li>
+      <li class="post-item">
+        <a class="post-item__link" href="posts/gemini-coverage-20260706-0208.html">마포 노래방 내돈내산, 합리적 가격으로 즐기는 밤</a>
+        <p class="post-item__summary">마포 지역에 위치한 노래방 '내돈내산'은 합리적인 가격으로 현지인들 사이에서 인기를 끌고 있다. 방마다 최신 음향 장비와 다양한 키트가 준비돼 있어, 편안하게 즐길 수 있다.</p>
+      </li>
+      <li class="post-item">
+        <a class="post-item__link" href="posts/gemini-coverage-20260706-0209.html">마포 노래방 내돈내산 솔직 후기</a>
+        <p class="post-item__summary">마포 쪽에서 친구들과 저녁을 먹고 나면 자연스럽게 노래방을 찾게 된다. 몇 군데를 돌아다니다 보면 가격대도 천차만별이라 어떤 곳이 합리적인지 고민이 될 때가 많다. 그래서 이번에는 직접 발품을 팔아</p>
+      </li>
+      <li class="post-item">
+        <a class="post-item__link" href="posts/gemini-coverage-20260706-0210.html">마포 노래방 내돈내산 후기: 편안한 노래로 완성되는 밤</a>
+        <p class="post-item__summary">마포에 위치한 작은 노래방을 찾았다. 교통이 편리하고 인근 카페와 바가 즐비해 바쁜 주말 투어에 딱이었더라. 입구를 지나면 웃음이 가득한 직원이 반갑게 맞이해 주었다.</p>
+      </li>
+      <li class="post-item">
+        <a class="post-item__link" href="posts/gemini-coverage-20260706-0211.html">마포 노래방 내돈내산 솔직 비교</a>
+        <p class="post-item__summary">마포에는 코인노래방부터 고급 룸까지 선택지가 꽤 다양하다. 홍대입구 근처에는 24시간 운영하는 곳이 많아 늦은 시간에도 부담 없이 들를 수 있다. 방마다 음향 상태와 곡 수록 차이가 있어 몇 군데 </p>
+      </li>
+      <li class="post-item">
+        <a class="post-item__link" href="posts/gemini-coverage-20260706-0212.html">마포 노래방 내돈내산, 현지 트렌드에 빠지는 곳</a>
+        <p class="post-item__summary">마포 지역에서 점점 더 많은 사람들이 내돈내산 노래방을 찾고 있다. 오래된 슬롯을 단일로 이용하고 재료를 배달했다는 점이 매력이다.</p>
+      </li>
+      <li class="post-item">
+        <a class="post-item__link" href="posts/gemini-coverage-20260706-0213.html">마포 노래방 내돈내산 방문기</a>
+        <p class="post-item__summary">요즘 마포에서 노래방을 찾는다면 선택지가 꽤 많다. 홍대입구 쪽은 늘 북적이고, 상수동이나 합정 쪽도 각각 분위기가 다르다. 하지만 막상 가보면 마이크 음질이나 반주 타이밍 같은 기본기가 아쉬운 곳</p>
+      </li>
+      <li class="post-item">
+        <a class="post-item__link" href="posts/gemini-coverage-20260706-0214.html">마포 노래방 내돈내산, 그 속에서 찾는 작은 음악의 공간</a>
+        <p class="post-item__summary">마포의 작은 골목길 끝에 숨겨진 노래방은 조용하면서도 거대한 음악 리듬을 품고 있다. 가벼운 조명과 편안한 좌석은 일상의 스트레스를 즉시 녹여 주며, 마포사람들의 아늑한 모임터가 된다. 이런 포근함</p>
+      </li>
+      <li class="post-item">
+        <a class="post-item__link" href="posts/gemini-coverage-20260706-0215.html">마포 노래방 내돈내산 트렌드, 홍대입구에서 읽는 달라진 노래방 문화</a>
+        <p class="post-item__summary">마포 홍대입구 일대는 콘셉트가 뚜렷한 노래방이 많아 입소문을 타는 곳이 적지 않다. 보컬룸, 코인노래방, 감성 인테리어 프라이빗 룸까지 취향에 따라 선택할 수 있는 폭이 넓다. 각 공간마다 사운드 </p>
+      </li>
+      <li class="post-item">
+        <a class="post-item__link" href="posts/gemini-coverage-20260706-0216.html">마포 노래방 내돈내산: 지역 사운드를 통한 새로운 비즈니스 기회</a>
+        <p class="post-item__summary">마포 노래방 내돈내산은 도시의 혼잡함 속에서도 사람들에게 소리와 따스한 분위기를 선사한다. 고급 음향 시스템과 편안한 좌석은 방문자에게 만족을 제공하며, 끊임없는 웃음과 노래가 가득하다. 이 곳은 </p>
+      </li>
+      <li class="post-item">
+        <a class="post-item__link" href="posts/gemini-coverage-20260706-0217.html">마포 노래방 내돈내산</a>
+        <p class="post-item__summary">마포 지역은 홍대입구와 신촌을 중심으로 노래방 밀집도가 높은 편이다. 실제로 몇 군데를 이용해본 경험으로 보면 장비 상태와 곡 업데이트 속도에서 업소 간 차이가 제법 컸다. 위치 접근성도 물론 중요</p>
+      </li>
+      <li class="post-item">
+        <a class="post-item__link" href="posts/gemini-coverage-20260706-0218.html">마포 노래방 내돈내산, 소음 없는 음악 공간</a>
+        <p class="post-item__summary">마포에 위치한 노래방 '내돈내산'은 지하철 역세권이라 접근성이 뛰어납니다. 내부는 최신 음향 장비와 조명 시스템을 갖추어, 친구와의 프라이빗 모임에 최적화돼 있습니다.</p>
+      </li>
+      <li class="post-item">
+        <a class="post-item__link" href="posts/gemini-coverage-20260706-0219.html">마포 노래방 내돈내산 직접 다녀온 후기</a>
+        <p class="post-item__summary">마포 지역은 젊은 층이 많아 노래방이 곳곳에 자리잡고 있다. 연희동에서 합정까지 거리를 걷다 보면 다양한 콘셉트의 노래방을 발견할 수 있다. 최근 주변 평가와 온라인 정보를 참고해 직접 방문한 곳들</p>
+      </li>
+      <li class="post-item">
+        <a class="post-item__link" href="posts/gemini-coverage-20260706-0220.html">마포 노래방, 내돈내산으로 저축을 노래하다</a>
+        <p class="post-item__summary">마포에 위치한 이 노래방은 가성비 높은 가요 세트와 무료 음료를 제공해 손님을 맞이한다. 현금으로 한 번에 결제하고, 나머지는 행사비로 쓰는 내돈내산 시스템을 채택했다. 그 덕분에 방문객은 두 번의</p>
+      </li>
+      <li class="post-item">
+        <a class="post-item__link" href="posts/gemini-coverage-20260706-0221.html">마포 노래방 내돈내산 – 직접 다녀본 업소들의 실제 차이점</a>
+        <p class="post-item__summary">마포 일대는 젊은 유동 인구가 많아 노래방 업소가 촘촘히 분포되어 있는 대표적인 지역이다. 홍대입구 역세권부터 합정, 상수 쪽까지 다양한 위치에 자리 잡고 있어 동네별로 분위기와 시스템이 조금씩 다</p>
+      </li>
+      <li class="post-item">
+        <a class="post-item__link" href="posts/gemini-coverage-20260721-0012.html">마포 노래방 내돈내산 후기와 관련 정보 보기</a>
+        <p class="post-item__summary">마포 노래방 내돈내산 후기를 읽으면서 과연 이 글이 정말 개인의 경험인지 고민해 본 적이 있습니까? 독자들은 정보의 홍수 속에서 순수한 정보와 광고성 정보를 구분하는 일에 점점 더 많은 에너지를 쏟</p>
+      </li>
+      <li class="post-item">
+        <a class="post-item__link" href="posts/gemini-coverage-20260721-0013.html">마포 노래방 내돈내산 경험으로 본 홍대 단체 가라오케 예약 가이드</a>
+        <p class="post-item__summary">마포 노래방 내돈내산 후기를 살펴볼 때 가장 중요한 것은 작성자가 실제로 비용을 지불하고 서비스를 이용했는지 확인하는 절차입니다. 온라인상의 익명 글들은 광고성 정보가 섞여 있을 확률이 높으므로, </p>
+      </li>
+      </ul>
+    <nav class="pager">
+      <span class="pager__current">1</span>
+      <a class="pager__link" href="posts-2.html">2</a>
+    </nav>
+    </main>
+  </div>
+</body>
+</html>
